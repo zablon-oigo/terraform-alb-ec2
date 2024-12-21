@@ -14,4 +14,10 @@ data "aws_subnet" "subnet2" {
 
 resource "aws_security_group" "webserver_sg" {
   name = "webserver-sg"
+  ingress {
+    to_port = 80
+    from_port = 80
+    protocol = "HTTP"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }
