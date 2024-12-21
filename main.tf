@@ -11,3 +11,7 @@ data "aws_subnet" "subnet2" {
     vpc_id = data.aws_vpc.vpc.id
     availability_zone = "us-east-1b"
 }
+
+resource "aws_security_group" "webserver_sg" {
+  name = "webserver-sg"
+}
