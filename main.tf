@@ -34,7 +34,13 @@ resource "aws_instance" "webserver" {
   count = 2
   security_groups = [ aws_security_group.webserver_sg.name ]
   user_data = <<-EOF
-  EOF
+      #! /bin/bash
+      yum update -y
+      yum install httpd -y
+      systemctl enable httpd
+      systemctl start httpd
+   echo "<html><h1 style='color:green'>Hello World, Server is running in: $(hostname) </h1></html>" > /var/www/html/index.html
+   EOF
   tags = {
     Name="instance-${count.index}"
   }
