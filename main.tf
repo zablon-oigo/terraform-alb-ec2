@@ -58,6 +58,7 @@ resource "aws_lb_target_group" "target_group" {
   name = "my-target-group"
   protocol = "HTTP"
   port = 80
+  target_type = "instance"
   vpc_id = data.aws_vpc.vpc.id 
 }
 resource "aws_lb" "webserver_alb" {
