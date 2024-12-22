@@ -72,3 +72,12 @@ resource "aws_lb" "webserver_alb" {
     Name = "web-alb"
   }
 }
+resource "aws_lb_listener" "webserver_listener" {
+  load_balancer_arn = aws_lb.webserver_alb.arn 
+  protocol = "HTTP"
+  port = 80
+  default_action {
+    target_group_arn = aws_lb_target_group.target_group.arn 
+    type = "forward"
+  }
+}
