@@ -81,3 +81,9 @@ resource "aws_lb_listener" "webserver_listener" {
     type = "forward"
   }
 }
+resource "aws_lb_target_group_attachment" "attach" {
+  count = length(aws_instance.webserver)
+  target_group_arn = aws_lb_target_group.target_group.arn 
+  target_id = aws_instance.webserver[count.index].id
+  
+}
