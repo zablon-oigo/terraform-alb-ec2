@@ -60,3 +60,15 @@ resource "aws_lb_target_group" "target_group" {
   port = 80
   vpc_id = data.aws_vpc.vpc.id 
 }
+resource "aws_lb" "webserver_alb" {
+  name = "web-alb"
+  internal = false 
+  ip_address_type = "ipv4"
+  load_balancer_type = "application"
+  subnets = [ data.aws_subnet.subnet1.id, data.aws_subnet.subnet2.id ]
+  security_groups = [ aws_security_group.webserver_sg.name ]
+
+  tags = {
+    Name = "web-alb"
+  }
+}
