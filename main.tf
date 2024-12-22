@@ -27,3 +27,16 @@ resource "aws_security_group" "webserver_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+resource "aws_instance" "webserver" {
+  ami = ""
+  instance_type = "t2.micro"
+  key_name = ""
+  count = 2
+  security_groups = [ aws_security_group.webserver_sg.name ]
+  user_data = <<-EOF
+  EOF
+  tags = {
+    Name="instance-${count.index}"
+  }
+  
+}
