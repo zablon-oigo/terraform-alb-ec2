@@ -46,3 +46,17 @@ resource "aws_instance" "webserver" {
   }
   
 }
+resource "aws_lb_target_group" "target_group" {
+  health_check {
+    interval = 10
+    protocol = "HTTP"
+    path = "/"
+    timeout = 5
+    healthy_threshold = 5
+    unhealthy_threshold = 2
+  }
+  name = "my-target-group"
+  protocol = "HTTP"
+  port = 80
+  vpc_id = data.aws_vpc.vpc.id 
+}
