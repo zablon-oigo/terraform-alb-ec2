@@ -1,0 +1,26 @@
+name: CI/CD
+on:
+  push:
+    branches:
+      - main 
+    paths:
+      - main.tf
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.3.0  
+          
+      - name: Terraform Init,Plan
+        run: |
+            terraform init
+            terraform plan
+        env:
+          TF_TOKEN_app_terraform_io: ${{ secrets.TERRAFORM_TOKEN }}
