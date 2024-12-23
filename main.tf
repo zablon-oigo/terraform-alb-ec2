@@ -30,7 +30,6 @@ resource "aws_security_group" "webserver_sg" {
 resource "aws_instance" "webserver" {
   ami             = "ami-01816d07b1128cd2d"
   instance_type   = "t2.micro"
-  key_name        = "test"
   count           = 2
   security_groups = [aws_security_group.webserver_sg.name]
   user_data       = <<-EOF
