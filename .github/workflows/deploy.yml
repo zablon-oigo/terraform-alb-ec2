@@ -21,6 +21,7 @@ jobs:
       - name: Terraform Init,Plan
         run: |
             terraform init
-            terraform plan
+            terraform plan -no-color
+        continue-on-error: true
         env:
           TF_TOKEN_app_terraform_io: ${{ secrets.TERRAFORM_TOKEN }}
