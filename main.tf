@@ -17,7 +17,7 @@ resource "aws_security_group" "webserver_sg" {
   ingress {
     to_port     = 80
     from_port   = 80
-    protocol    = "HTTP"
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
   egress {
@@ -35,11 +35,12 @@ resource "aws_instance" "webserver" {
   security_groups = [aws_security_group.webserver_sg.name]
   user_data       = <<-EOF
       #! /bin/bash
+      sudo su
       yum update -y
       yum install httpd -y
       systemctl enable httpd
       systemctl start httpd
-   echo "<html><h1 style='color:green'>Hello World, Server is running in: $(hostname) </h1></html>" > /var/www/html/index.html
+      echo "<html><h1 style='color:green'>Hello World, Server is running in: $(hostname -f)</h1></html>" > /var/www/html/index.html
    EOF
   tags = {
     Name = "instance-${count.index}"
