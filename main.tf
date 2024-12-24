@@ -7,6 +7,9 @@ terraform {
   }
 }
 provider "aws" {
+  region = ""
+  secret_key = ""
+  access_key = ""
 }
 data "aws_vpc" "vpc" {
   default = true
