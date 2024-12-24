@@ -1,3 +1,11 @@
+terraform {
+  cloud {
+    organization = "traffic-btn-server"
+    workspaces {
+      name = "terraform-alb-ec2"
+    }
+  }
+}
 provider "aws" {
 }
 data "aws_vpc" "vpc" {
